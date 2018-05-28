@@ -24,6 +24,14 @@ class MyTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+   
+    @IBAction func editable(_ sender: Any) {
+        tableView.isEditing = true
+    }
+    @IBAction func nonEditable(_ sender: Any) {
+        tableView.isEditing = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,7 +62,7 @@ class MyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 전화걸기 alert
+        /* 전화걸기 alert
         let optionMenu = UIAlertController(title : "전화걸기 : " + foodnames[indexPath.row], message: foodTel[indexPath.row], preferredStyle: .actionSheet)
         let call = UIAlertController(title : "전화중 " + foodnames[indexPath.row], message: foodTel[indexPath.row], preferredStyle: .alert)
          let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler:nil)
@@ -67,34 +75,53 @@ class MyTableViewController: UITableViewController {
       
         optionMenu.addAction(callAction)
         optionMenu.addAction(cancelAction)
-        present(optionMenu, animated: true, completion: nil)
+        present(optionMenu, animated: true, completion: nil)*/
     }
-    /*
+ 
     // Override to support conditional editing of the table view.
+    //
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+ 
 
-    /*
+    
     // Override to support editing the table view.
+    //선택한 셀 삭제
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            foodnames.remove(at: indexPath.row)
+            foodAddress.remove(at: indexPath.row)
+            foodTel.remove(at: indexPath.row)
+            foodThumbail.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+        }//        } else if editingStyle == .insert {
+        //            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
 
-    /*
+
+    
     // Override to support rearranging the table view.
+    //셀의 데이터 이동
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+        let tmp1 = foodnames[to.row]
+        foodnames[to.row] = foodnames[fromIndexPath.row]
+        foodnames[fromIndexPath.row] = tmp1
+        let tmp2 = foodTel[to.row]
+         foodTel[to.row] =  foodTel[fromIndexPath.row]
+         foodTel[fromIndexPath.row] = tmp2
+        let tmp3 = foodAddress[to.row]
+        foodAddress[to.row] =  foodAddress[fromIndexPath.row]
+        foodAddress[fromIndexPath.row] = tmp3
+        let tmp4 = foodThumbail[to.row]
+        foodThumbail[to.row] =  foodThumbail[fromIndexPath.row]
+        foodThumbail[fromIndexPath.row] = tmp4
+        
+        tableView.reloadData()
     }
-    */
+
 
     /*
     // Override to support conditional rearranging of the table view.
